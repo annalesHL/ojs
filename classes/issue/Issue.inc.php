@@ -416,23 +416,6 @@ class Issue extends DataObject {
 	}
 
 	/**
-	 * Return string of author names, separated by the specified token
-	 * @param $lastOnly boolean return list of lastnames only (default false)
-	 * @param $separator string separator for names (default comma+space)
-	 * @return string
-	 */
-	function getAuthorString($lastOnly = false, $separator = ', ') {
-		$str = '';
-		foreach ($this->getAuthors() as $a) {
-			if (!empty($str)) {
-				$str .= $separator;
-			}
-			$str .= $lastOnly ? $a->getLastName() : $a->getFullName();
-		}
-		return $str;
-	}
-
-	/**
 	 * Return the string of the issue identification based label format
 	 * @param $force array force show/hide of data components
 	 * @return string
@@ -503,7 +486,10 @@ class Issue extends DataObject {
 	 * @return string
 	 */
 	function getIssueSeries() {
-		return $this->getIssueIdentification(array('showTitle' => false));
+		if ($this->getShowVolume() || $this->getShowNumber() || $this->getShowYear()) {
+			return $this->getIssueIdentification(array('showTitle' => false));
+		}
+		return null;
 	}
 
 	/**

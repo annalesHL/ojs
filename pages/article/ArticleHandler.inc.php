@@ -29,13 +29,6 @@ class ArticleHandler extends Handler {
 	/** galley associated with the request **/
 	var $galley;
 
-	/**
-	 * Constructor
-	 * @param $request Request
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * @copydoc PKPHandler::authorize()
@@ -55,7 +48,6 @@ class ArticleHandler extends Handler {
 	 */
 	function initialize($request, $args) {
 		$articleId = isset($args[0]) ? $args[0] : 0;
-		$galleyId = isset($args[1]) ? $args[1] : 0;
 
 		$journal = $request->getContext();
 		$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
@@ -72,8 +64,14 @@ class ArticleHandler extends Handler {
 			$this->article = $article;
 		}
 
-		$galleyDao = DAORegistry::getDAO('ArticleGalleyDAO');
-		$this->galley = $galleyDao->getByBestGalleyId($galleyId, $this->article->getId());
+		if (!isset($this->article)) $request->getDispatcher()->handle404();
+
+		if (in_array($request->getRequestedOp(), array('view', 'download'))) {
+			$galleyId = isset($args[1]) ? $args[1] : 0;
+			$galleyDao = DAORegistry::getDAO('ArticleGalleyDAO');
+			$this->galley = $galleyDao->getByBestGalleyId($galleyId, $this->article->getId());
+			if ($galleyId && !$this->galley) $request->getDispatcher()->handle404();
+		}
 	}
 
 	/**
@@ -87,6 +85,7 @@ class ArticleHandler extends Handler {
 		$fileId = array_shift($args);
 
 		$journal = $request->getJournal();
+		$user = $request->getUser();
 		$issue = $this->issue;
 		$article = $this->article;
 		$templateMgr = TemplateManager::getManager($request);
@@ -98,6 +97,38 @@ class ArticleHandler extends Handler {
 		$this->setupTemplate($request);
 
 		if (!$this->userCanViewGalley($request, $articleId, $galleyId)) fatalError('Cannot view galley.');
+
+		// Get galleys sorted into primary and supplementary groups
+		$galleys = $article->getGalleys();
+		$primaryGalleys = array();
+		$supplementaryGalleys = array();
+		if ($galleys) {
+			$genreDao = DAORegistry::getDAO('GenreDAO');
+			$primaryGenres = $genreDao->getPrimaryByContextId($journal->getId())->toArray();
+			$primaryGenreIds = array_map(function($genre) {
+				return $genre->getId();
+			}, $primaryGenres);
+			$supplementaryGenres = $genreDao->getBySupplementaryAndContextId(true, $journal->getId())->toArray();
+			$supplementaryGenreIds = array_map(function($genre) {
+				return $genre->getId();
+			}, $supplementaryGenres);
+
+			foreach ($galleys as $galley) {
+				$file = $galley->getFile();
+				if (!$file) {
+					continue;
+				}
+				if (in_array($file->getGenreId(), $primaryGenreIds)) {
+					$primaryGalleys[] = $galley;
+				} elseif (in_array($file->getGenreId(), $supplementaryGenreIds)) {
+					$supplementaryGalleys[] = $galley;
+				}
+			}
+		}
+		$templateMgr->assign(array(
+			'primaryGalleys' => $primaryGalleys,
+			'supplementaryGalleys' => $supplementaryGalleys,
+		));
 
 		// Fetch and assign the section to the template
 		$sectionDao = DAORegistry::getDAO('SectionDAO');
@@ -112,12 +143,12 @@ class ArticleHandler extends Handler {
 		// Copyright and license info
 		$templateMgr->assign(array(
 			'copyright' => $journal->getLocalizedSetting('copyrightNotice'),
-			'copyrightHolder' => $journal->getLocalizedSetting('copyrightHolder'),
-			'copyrightYear' => $journal->getSetting('copyrightYear')
 		));
 		if ($article->getLicenseURL()) $templateMgr->assign(array(
 			'licenseUrl' => $article->getLicenseURL(),
 			'ccLicenseBadge' => Application::getCCLicenseBadge($article->getLicenseURL()),
+			'copyrightHolder' => $article->getLocalizedCopyrightHolder(),
+			'copyrightYear' => $article->getCopyrightYear(),
 		));
 
 		// Keywords
@@ -145,11 +176,11 @@ class ArticleHandler extends Handler {
 			$issueAction = new IssueAction();
 			$subscriptionRequired = false;
 			if ($issue) {
-				$subscriptionRequired = $issueAction->subscriptionRequired($issue);
+				$subscriptionRequired = $issueAction->subscriptionRequired($issue, $journal);
 			}
 
-			$subscribedUser = $issueAction->subscribedUser($journal, isset($issue) ? $issue->getId() : null, isset($article) ? $article->getId() : null);
-			$subscribedDomain = $issueAction->subscribedDomain($journal, isset($issue) ? $issue->getId() : null, isset($article) ? $article->getId() : null);
+			$subscribedUser = $issueAction->subscribedUser($user, $journal, isset($issue) ? $issue->getId() : null, isset($article) ? $article->getId() : null);
+			$subscribedDomain = $issueAction->subscribedDomain($request, $journal, isset($issue) ? $issue->getId() : null, isset($article) ? $article->getId() : null);
 
 			$templateMgr->assign('hasAccess', !$subscriptionRequired || (isset($article) && $article->getAccessStatus() == ARTICLE_ACCESS_OPEN) || $subscribedUser || $subscribedDomain);
 
@@ -205,7 +236,6 @@ class ArticleHandler extends Handler {
 				$articleGalleys = $articleGalleyDao->getBySubmissionId($articleId);
 				while ($articleGalley = $articleGalleys->next()) {
 					$galleyFile = $articleGalley->getFile();
-print_r($galleyFile);
 					if ($galleyFile && $galleyFile->getFileId() == $submissionFile->getFileId()) {
 						header('HTTP/1.1 301 Moved Permanently');
 						$request->redirect(null, null, 'download', array($articleId, $articleGalley->getId(), $submissionFile->getFileId()));
@@ -228,7 +258,7 @@ print_r($galleyFile);
 		$fileId = isset($args[2]) ? (int) $args[2] : 0;
 
 		if ($this->galley->getRemoteURL()) $request->redirectUrl($this->galley->getRemoteURL());
-		if ($this->userCanViewGalley($request, $articleId, $galleyId)) {
+		else if ($this->userCanViewGalley($request, $articleId, $galleyId)) {
 			if (!$fileId) {
 				$submissionFile = $this->galley->getFile();
 				if ($submissionFile) {
@@ -236,7 +266,9 @@ print_r($galleyFile);
 					// The file manager expects the real article id.  Extract it from the submission file.
 					$articleId = $submissionFile->getSubmissionId();
 				} else { // no proof files assigned to this galley!
-					return null;
+					header('HTTP/1.0 403 Forbidden');
+					echo '403 Forbidden<br>';
+					return;
 				}
 			}
 
@@ -245,6 +277,9 @@ print_r($galleyFile);
 				$submissionFileManager = new SubmissionFileManager($this->article->getContextId(), $this->article->getId());
 				$submissionFileManager->downloadFile($fileId, null, $request->getUserVar('inline')?true:false);
 			}
+		} else {
+			header('HTTP/1.0 403 Forbidden');
+			echo '403 Forbidden<br>';
 		}
 	}
 
@@ -268,14 +303,14 @@ print_r($galleyFile);
 
 		// If this is an editorial user who can view unpublished/unscheduled
 		// articles, bypass further validation. Likewise for its author.
-		if ($publishedArticle && $issueAction->allowedPrePublicationAccess($journal, $publishedArticle)) {
+		if ($publishedArticle && $issueAction->allowedPrePublicationAccess($journal, $publishedArticle, $user)) {
 			return true;
 		}
 
 		// Make sure the reader has rights to view the article/issue.
 		if ($issue && $issue->getPublished() && $publishedArticle->getStatus() == STATUS_PUBLISHED) {
-			$subscriptionRequired = $issueAction->subscriptionRequired($issue);
-			$isSubscribedDomain = $issueAction->subscribedDomain($journal, $issue->getId(), $publishedArticle->getId());
+			$subscriptionRequired = $issueAction->subscriptionRequired($issue, $journal);
+			$isSubscribedDomain = $issueAction->subscribedDomain($request, $journal, $issue->getId(), $publishedArticle->getId());
 
 			// Check if login is required for viewing.
 			if (!$isSubscribedDomain && !Validation::isLoggedIn() && $journal->getSetting('restrictArticleAccess') && isset($galleyId) && $galleyId) {
@@ -287,7 +322,7 @@ print_r($galleyFile);
 			if ( (!$isSubscribedDomain && $subscriptionRequired) && (isset($galleyId) && $galleyId) ) {
 
 				// Subscription Access
-				$subscribedUser = $issueAction->subscribedUser($journal, $issue->getId(), $publishedArticle->getId());
+				$subscribedUser = $issueAction->subscribedUser($user, $journal, $issue->getId(), $publishedArticle->getId());
 
 				import('classes.payment.ojs.OJSPaymentManager');
 				$paymentManager = new OJSPaymentManager($request);

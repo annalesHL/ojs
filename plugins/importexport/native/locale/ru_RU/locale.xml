@@ -16,6 +16,7 @@
 	<message key="plugins.importexport.native.description">Импортирует и экспортирует статьи и выпуски в собственном XML-формате OJS.</message>
 	<message key="plugins.importexport.native.import">Импортировать</message>
 	<message key="plugins.importexport.native.import.instructions">Загрузите файл XML для импорта</message>
+	<message key="plugins.importexport.native.exportSubmissionsSelect">Выберите статьи для экспорта</message>
 	<message key="plugins.importexport.native.exportSubmissions">Экспортировать статьи</message>
 	<message key="plugins.importexport.native.exportIssues">Экспортировать выпуски</message>
 	<message key="plugins.importexport.native.results">Результаты</message>
@@ -51,5 +52,7 @@
 	<message key="plugins.importexport.native.import.error.sectionAbbrevMismatch">Аббревиатура раздела «{$section1Abbrev}» и аббревиатура раздела «{$section2Abbrev}» в выпуске «{$issueTitle}» совпали с различными существующими разделами журнала.</message>
 	<message key="plugins.importexport.native.import.error.sectionAbbrevMatch">Аббревиатура раздела «{$sectionAbbrev}» в выпуске «{$issueTitle}» совпала с существующим разделом журнала, но другая аббревиатура этого раздела не совпала с другой аббревиатурой существующего раздела журнала.</message>
 	<message key="plugins.importexport.native.import.error.issueIdentificationMatch">Ни одного выпуска или более одного выпуска совпало с указанной идентификацией выпуска «{$issueIdentification}».</message>
+	<message key="plugins.importexport.native.import.error.issueIdentificationDuplicate">Существующий выпуск с идентификатором {$issueId} совпадает с указаной идентификацией выпуска «{$issueIdentification}». Этот выпуск не будет изменен, но статьи будут добавлены.</message>
 	<message key="plugins.importexport.native.import.error.issueIdentificationMissing">Элемент идентификации выпуска отсутствует для статьи «{$articleTitle}».</message>
+	<message key="plugins.importexport.native.import.error.publishedDateMissing">Статья «{$articleTitle}» есть в выпуске, но для нее не указана дата публикации.</message>
 </locale>

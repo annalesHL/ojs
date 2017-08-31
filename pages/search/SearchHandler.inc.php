@@ -17,12 +17,6 @@ import('classes.search.ArticleSearch');
 import('classes.handler.Handler');
 
 class SearchHandler extends Handler {
-	/**
-	 * Constructor
-	 **/
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * @copydoc PKPHandler::authorize()
@@ -196,6 +190,7 @@ class SearchHandler extends Handler {
 		$this->setupTemplate($request);
 
 		$journal = $request->getJournal();
+		$user = $request->getUser();
 
 		$authorDao = DAORegistry::getDAO('AuthorDAO');
 
@@ -230,7 +225,7 @@ class SearchHandler extends Handler {
 					$issue = $issueDao->getById($issueId);
 					$issues[$issueId] = $issue;
 					$issueAction = new IssueAction();
-					$issuesUnavailable[$issueId] = $issueAction->subscriptionRequired($issue) && (!$issueAction->subscribedUser($journal, $issueId, $articleId) && !$issueAction->subscribedDomain($journal, $issueId, $articleId));
+					$issuesUnavailable[$issueId] = $issueAction->subscriptionRequired($issue, $journal) && (!$issueAction->subscribedUser($user, $journal, $issueId, $articleId) && !$issueAction->subscribedDomain($request, $journal, $issueId, $articleId));
 				}
 				if (!isset($journals[$journalId])) {
 					$journals[$journalId] = $journalDao->getById($journalId);

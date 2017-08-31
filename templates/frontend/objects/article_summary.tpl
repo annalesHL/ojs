@@ -11,6 +11,7 @@
  * @uses $hasAccess bool Can this user access galleys for this context? The
  *       context may be an issue or an article
  * @uses $showDatePublished bool Show the date this article was published?
+ * @uses $primaryGenreIds array List of file genre ids for primary file types
  *}
 {assign var=articlePath value=$article->getBestArticleId()}
 
@@ -28,7 +29,7 @@
 	{/if}
 
 	<div class="title">
-		<a href="{url page="article" op="view" path=$articlePath}">
+		<a {if $journal}href="{url journal=$journal->getPath() page="article" op="view" path=$articlePath}"{else}href="{url page="article" op="view" path=$articlePath}"{/if}>
 			{$article->getLocalizedTitle()|strip_unsafe_html}
 		</a>
 	</div>
@@ -60,6 +61,12 @@
 	{if $hasAccess}
 		<ul class="galleys_links">
 			{foreach from=$article->getGalleys() item=galley}
+				{if $primaryGenreIds}
+					{assign var="file" value=$galley->getFile()}
+					{if !$file || !in_array($file->getGenreId(), $primaryGenreIds)}
+						{php}continue;{/php}
+					{/if}
+				{/if}
 				<li>
 					{assign var="hasArticleAccess" value=$hasAccess}
 					{if ($article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN)}

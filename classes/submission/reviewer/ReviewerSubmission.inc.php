@@ -27,12 +27,6 @@ class ReviewerSubmission extends Article {
 	/** @var array the editor decisions of this submission */
 	var $editorDecisions;
 
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Get/Set Methods.
@@ -261,22 +255,6 @@ class ReviewerSubmission extends Article {
 	 */
 	function setDeclined($declined) {
 		return $this->setData('declined', $declined);
-	}
-
-	/**
-	 * Get the replaced value.
-	 * @return boolean
-	 */
-	function getReplaced() {
-		return $this->getData('replaced');
-	}
-
-	/**
-	 * Set the reviewer's replaced value.
-	 * @param $replaced boolean
-	 */
-	function setReplaced($replaced) {
-		return $this->setData('replaced', $replaced);
 	}
 
 	/**

@@ -28,12 +28,6 @@ define('DATACITE_EXPORT_FILE_TAR', 0x02);
 
 
 class DataciteExportPlugin extends DOIPubIdExportPlugin {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * @see Plugin::getName()
@@ -180,7 +174,7 @@ class DataciteExportPlugin extends DOIPubIdExportPlugin {
 					NOTIFICATION_TYPE_SUCCESS
 				);
 			} else {
-				foreach($resultErrors as $error) {
+				foreach($resultErrors as $errors) {
 					foreach ($errors as $error) {
 						assert(is_array($error) && count($error) >= 1);
 						$this->_sendNotification(

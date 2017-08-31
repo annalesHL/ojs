@@ -28,13 +28,6 @@ define ('AUTHOR_TOC_SHOW', 2);
 import('lib.pkp.classes.submission.Submission');
 
 class Article extends Submission {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Get/set methods
@@ -193,22 +186,6 @@ class Article extends Submission {
 	 */
 	function setSectionAbbrev($sectionAbbrev) {
 		return $this->setData('sectionAbbrev', $sectionAbbrev);
-	}
-
-	/**
-	 * get expedited
-	 * @return boolean
-	 */
-	function getFastTracked() {
-		return $this->getData('fastTracked');
-	}
-
-	/**
-	 * set fastTracked
-	 * @param $fastTracked boolean
-	 */
-	function setFastTracked($fastTracked) {
-		return $this->setData('fastTracked',$fastTracked);
 	}
 
 	/**
