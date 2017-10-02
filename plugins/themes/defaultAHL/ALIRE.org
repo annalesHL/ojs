@@ -1,0 +1,6 @@
+https://forum.pkp.sfu.ca/t/ojs-3-need-help-with-theme-customization/21210/46
+
+
+ATTENTION pour faire fonctionner la page 'partners' le fichier
+/home/san/Annales/ojs/pages/about/index.php doit être modifié
+

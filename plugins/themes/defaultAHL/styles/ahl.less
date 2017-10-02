@@ -1,0 +1,878 @@
+/**
+ * @file styles/index.less
+ *
+ * Copyright (c) 2014-2017 Simon Fraser University
+ * Copyright (c) 2003-2017 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * @brief Main OMP stylesheet wrapper
+ *
+ */
+
+/**
+ * To minimize specificity battles, styles should be loaded in the following
+ * order: fonts, browser reset, variables, mix-ins, helpers, structure,
+ * components, library overrides, particular page styling and one-off exceptions
+ */
+
+// Fonts first - get the files loading as quick as possible
+@import "lib/pkp/styles/fonts.less";
+
+// Normalize.css - Browser reset styles
+@import "lib/pkp/styles/lib/normalize.less";
+
+@import "plugins/themes/default/styles/index.less";
+
+// Variables
+@import "lib/pkp/styles/variables.less";
+@import "plugins/themes/defaultAHL/styles/variables.less";
+
+// Mix-ins, animations, etc
+@import "lib/pkp/styles/utils.less";
+
+// Helpers etc.
+@import "lib/pkp/styles/helpers.less";
+
+// Structure
+//@import "lib/pkp/styles/structure/index.less";
+
+// Controllers
+@import "lib/pkp/styles/controllers/index.less";
+
+// Override styles from imported libraries
+@import "lib/pkp/styles/jlabel.less";
+
+// Link Actions
+@import "lib/pkp/styles/linkActions.less";
+
+// Page Elements
+@import "lib/pkp/styles/pages/index.less";
+
+// Right-to-left styles
+@import "lib/pkp/styles/rtl.less";
+
+/**
+ * Legacy styles needing refactoring
+ */
+
+/* Content Elements */
+@import "lib/pkp/styles/content.less";
+
+@import "lib/pkp/styles/sprites.less";
+
+
+::selection {
+    background: @bleu-logo;
+}
+
+a {
+	color: black;
+	font-family: orator_stdregular;
+	text-decoration: none;
+}
+    
+.grid_actions {
+	padding: 22px 0 22px 0;
+	overflow: hidden;
+
+	a {
+		padding:0;
+		/**
+		 * FIXME: !important elements needed in the event CSS
+		 * application order vis-a-vis jQueryUI is reversed (see
+		 * editor decision actions on review interface in OMP)
+		 */
+		margin:0 -3px 0 0 !important;
+		border-style: none !important;
+		border-color: white !important;
+		border-width: 0 0 0 0 !important;
+		background: #0c3b66 url(@{baseUrl}/lib/pkp/templates/images/button_bg_slice.png) repeat-x;
+		height: 24px;
+		-moz-border-radius-topright: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+	}
+
+	a:first-child {
+		-webkit-top-left-border-radius: 5px;
+		-webkit-bottom-left-border-radius: 5px;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+
+	a:last-child {
+		-webkit-top-right-border-radius: 5px;
+		-webkit-bottom-right-border-radius: 5px;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+
+}
+
+.action_links {
+	line-height: 24px;
+	height: 24px;
+	vertical-align: middle;
+	padding-bottom: 10px;
+}
+
+.action_links a {
+	font-size: 90%;
+	margin-right: 20px;
+	float: left;
+}
+
+
+// Header style
+@import "plugins/themes/defaultAHL/styles/header.less";
+
+li.show {
+	list-style: none;
+}
+.pkp_structure_main p {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+p:first-child,
+.pkp_structure_main p:first-child {
+	margin-top: 0px;
+}
+
+
+/*
+ * XAVIER
+ */
+
+@import "plugins/themes/defaultAHL/styles/forms.less";
+
+
+.cmp_form .pkp_form_error {
+	background: #d04040;
+	font-size: inherit;
+	font-family: orator_stdregular;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.cmp_form .pkp_form_success {
+	background: #40d040;
+	color: white;
+	font-size: inherit;
+	font-family: orator_stdregular;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.pkp_navigation_user > li > a {
+	color: black;
+}
+.pkp_navigation_user > li > a:hover {
+	color: black;
+}
+
+.has_site_logo {
+	.pkp_head_wrapper {
+		padding-top: @triple;
+	}
+
+	.pkp_site_name_backend_wrapper {
+		position: absolute;
+		left: 0px;
+		top: 12px;
+	}
+
+	.pkp_site_name_backend_wrapper .is_img img {
+		height: 50px;
+		width: 60px;
+	}
+}
+
+.pkp_structure_page {
+	margin-top: @triple;
+}
+
+.pkp_structure_backend {
+	margin-top: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	width: 100%;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 20px;
+	h1 {
+		font-family: orator_stdregular;
+		margin-top: 0px;
+	}
+
+	.ui-pnotify {
+		margin-top: 15px;
+	}
+
+	.pkp_tab_actions {
+		li {
+			display: inline-block;
+		}
+		ul.pkp_workflow_decision a {
+			width: auto;
+		}
+	}
+
+	.pkp_page_header .pkp_page_title {
+		margin-top: 0px;
+		padding-top: 0px;
+	}
+
+	.pkp_workflow_decisions {
+		margin-top: 0px;
+		padding-left: 0px;
+	}
+
+	.pkp_submission_actions {
+		background: none;
+		position: absolute;
+		padding-right: 2px;
+		left: auto;
+		right: 0px;
+		top: 0px;
+		a, a:focus {
+			font-weight: normal;
+			color: rgb(0,128,0);
+			text-shadow: none;
+			line-height: 1.5 * @font-base;
+			padding-right: 0;
+			background: none;
+		}
+		a::after {
+			font-size: 80%;
+			letter-spacing: -3px;
+			padding-left: 8px;
+			content: ">>";
+		}
+		a:hover {
+			color: @bleu-logo-dark;
+			background: none;
+		}
+		li {
+			display: initial;
+			background: none;
+		}
+	}
+}
+
+.pkp_structure_backend, .pkp_modal_panel {
+	.ui-tabs-nav {
+		font-size: 105%;
+		border-left: solid 2px transparent;
+		border-right: solid 1px transparent;
+		border-bottom: solid 1px @bleu-menu;
+		margin-bottom: 20px;
+		padding-left: 0px;
+		background: none;
+		li a {
+			font-weight: normal;
+		}
+		.ui-state-active {
+			background: none;
+		}
+	}
+	.ui-tabs-active {
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		border-left: solid 1px @bleu-menu;
+		border-right: solid 1px @bleu-menu;
+		a::before {
+			background: @bleu-menu;
+		}
+	}
+	.ui-tabs-panel {
+		background: none;
+	}
+
+	.pkp_controllers_grid {
+		font-size: @font-base;
+		background: white;
+		border: solid 1px @bleu-logo;
+		border-radius: 10px;
+		color: black;
+		.actions a, .row_controls a {
+			font-weight: normal;
+		}
+		.header {
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			background: @bleu-bg;
+		}
+		thead {
+			background: @bleu-bg2;
+			border-bottom: solid 0.5px @bleu-bg;
+		}
+		.gridRow:first-child {
+			border: none;
+		}
+		.gridPaging {
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			background: @bleu-bg2;
+			.gridPages a {
+				border: none;
+				padding: 1px;
+				box-shadow: none;
+				background: none;
+				font-size: inherit;
+				vertical-align: inherit;
+				color: inherit;
+				text-decoration: underline;
+			}
+		}
+		.gridPagingScrolling, .footer {
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			background: @bleu-bg2;
+		}
+		.pkp_linkaction_search.is_open {
+			background: none;
+			border: none;
+		}
+		.filter {
+			background: @bleu-bg;
+		}
+	}
+
+	.pkp_grid_category .gridRow.category {
+		background: @bleu-bg2;
+	}
+
+	.pkp_uploadedFile_summary {
+		font-size: @font-base;
+		.filename {
+			font-size: @font-base;
+		}
+	}
+}
+
+.pkp_modal_panel {
+	.ui-tabs-nav li a {
+		font-size: @font-base;
+	}
+}
+
+.email {
+	.header {
+		font-size: 90%;
+		color: black;
+		margin-bottom: @triple;
+		font-style: italic;
+		.label {
+			font-weight: bold;
+			padding-right: 10px;
+			font-style: normal;
+		}
+	}
+}
+
+.pkp_modal {
+	position: absolute;
+	top: 140px;
+	background: @bg;
+	overflow-y: unset;
+	.ui-tabs-nav {
+		margin-bottom: 20px;
+	}
+	.pkp_modal_panel {
+		background: @bg;
+	}
+	.ui-tabs-panel, .ui-tabs-nav .ui-state-active {
+		background: none;
+	}
+}
+
+.pkp_help_panel {
+	z-index: 5000;
+	position: fixed;
+	top: 0px;
+	background: rgba(0,0,0,0.8);
+	overflow-y: auto;
+	.panel {
+		width: 40%;
+	}
+	.header {
+		position: -webkit-sticky;
+		position: sticky;
+		font-size: @font-base;
+		top: 0px;
+	}
+	.content {
+		font-size: @font-base;
+		padding-left: 20px;
+	}
+}
+.pkp_help_tab, .pkp_help_modal {
+	background: none;
+}
+.pkp_help_link {
+	font-weight: normal;
+}
+
+.pkp_modal_panel {
+	max-width: unset;
+	@media( min-width: @screen-tablet ) {
+		width: @screen-tablet-container;
+	}
+	@media( min-width: @screen-desktop ) {
+		width: @screen-desktop-container;
+	}
+	@media( min-width: @screen-lg-desktop ) {
+		width: @screen-lg-desktop-container;
+	}
+	margin: auto;
+	padding-bottom: @triple;
+	.close {
+		color: black;
+	}
+	.close:hover {
+		background: @bleu-logo-dark;
+		color: white;
+	}
+	> .header {
+		font-family: orator_stdregular;
+		font-size: 1.2 * @font-base;
+		font-weight: 700;
+		background: none;
+		color: lighten(black,40%);
+		padding-bottom: 15px;
+	}
+}
+
+.modal_is_visible {
+	overflow: unset !important;
+}
+
+
+// frontend.less
+// This LESS file will be parsed before the default stylesheet is compiled. Any
+// variables defined here will override those in the original stylesheet.
+//
+// You can also add additional CSS style rules if desired.
+
+// le CSS généré est ajouté *après* le CSS de thème parent mais les
+// variables sont bien lues *avant*la compilation de l'ensemble, donc
+// elle remplacent bien les variables du thème parent.
+
+
+// Increase the font size and weight of section titles in the issue
+// table of contents
+.obj_issue_toc .galleys h2,
+.obj_issue_toc .section h2 {
+	font-size: @font-header;
+	font-weight: @bold;
+	color: @text;
+}
+
+// remove large padding-bottom
+div .pkp_structure_frontend {
+    float: none;
+    padding-left: 0px;
+    padding-right: 0px;
+    // font-family: 'orator_stdregular';
+    @media(min-width: @screen-desktop) {
+        width: 772px;
+        margin: auto;
+    }
+    line-height: 22px;
+    padding-bottom: @quadruple;
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    // on met le texte au dessus du logo animé
+    z-index: 100;
+
+    li::before {
+        content: ">";
+        margin-right: 1ex;
+    }
+}
+
+.pkp_structure_main {
+    h3 {
+        font-family: 'lettergothic';
+        font-size: 130%;
+        margin: 20px 0 10px;
+        color: @bleu-logo;
+        font-weight: bold;
+    }
+    h4 {
+        font-family: 'orator_stdregular';
+        font-weight: bold;
+        margin: 10px 0 5px;
+        font-size: 100%;
+    }
+}
+
+// page contacts
+
+.page_contact {
+    font-size: @font-base - 1;
+    font-weight: bold;
+    line-height: 20px;
+    @media (min-width: @screen-desktop) {
+	font-size: @font-base;
+	font-weight: bold;
+    }
+    .address {
+	font-size: unset;
+    }
+    .contact {
+	float: unset;
+    }
+    .contact.primary, .contact.support {
+	h3 {
+	    text-transform: lowercase;
+	    margin-bottom: 5px;
+	}
+    }
+    .email {
+	margin-top: 0px;
+	margin-bottom: 10px;
+	font-size: @font-base;
+	a {
+	    text-decoration: none;
+	    color: black;
+	}
+    }
+}
+
+// Page editorial team
+// à finir!
+
+.editorial_team {
+    div.chief_editor,
+    div.associate_editors {
+	display: block;
+	float: unset;
+    }
+    div {
+	font-size: @font-base;
+	h3 {
+	    text-transform: lowercase;
+	    margin-bottom: 5px;
+	    font-size: @font-base;
+	}
+	width: 80%;
+	@media (min-width: @screen-desktop) {
+	    display: inline-block;
+	    width: 33%;
+	    float: left;
+	}
+	ul {
+	    line-height: 20px;
+	    margin-top: 0;
+	}
+    }
+    
+}
+
+
+// Login and register
+
+.page_login, .page_register {
+	border: solid 1px @bleu-logo-pale;
+	border-radius: 16px;
+	padding: 0px;
+	margin-top: 35px;
+	#lostPassword {
+		position: relative;
+		font-family: 'orator_stdregular';
+		text-decoration: none;
+		font-size: 12px;
+		color: black;
+		bottom: -17px;
+		cursor: pointer;
+	}
+}
+form#login, form#register {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+	display: table;
+	float: none;
+	max-width: 100%;
+	input[type="text"],
+	input[type="password"],
+	select {
+		border-style: none none solid none;
+		border-radius: 0;
+		border-color: @bleu-input;
+		height: 20px;
+		margin-left: 2ex;
+		padding: 0;
+		color: @bleu-verydark;
+		background: @bg;
+		font-size: @font-base;
+	}
+	input[type="text"],
+	select {
+		width: 20em;
+	}
+	fieldset {
+		margin-bottom: 0px;
+	}
+	input[type="password"] {
+		width: 10em;
+	}
+	.submit:hover {
+		background: @bleu-button-dark;
+	}
+	.label {
+		font-size: @font-base;
+		float: left;
+	}
+	.buttons button, #lostPassword, .remember, .buttons a {
+		margin-left: auto;
+		margin-right: auto;
+		display: table;
+		float: none;
+	}
+	.fields {
+		margin: 0;
+	    }
+	div.remember {
+		margin-top: 1em;
+		padding: 0;
+	}
+    
+	div.buttons {
+		height: 0;
+		padding: 0;
+		button {
+			font-family: 'orator_stdregular';
+			text-transform: lowercase;
+			background: @bleu-button;
+			float: none;
+			position: relative;
+			bottom: -7px;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			font-size: @font-base;
+		}
+    
+	}
+	div.password {
+		padding-bottom: 10px;
+	}
+	.buttons a {
+		position: relative;
+		font-family: 'orator_stdregular';
+		text-decoration: none;
+		font-size: 12px;
+		color: black;
+		bottom: -15px;
+	}
+}
+
+
+// Register
+
+.page_register {
+	margin-top: 10px;
+}
+.page_login form#login,
+.page_register form#register,
+.changePassword form#login {
+	padding-left: 30px;
+	padding-right: 30px;
+	width: 100%;
+	fieldset {
+		margin: 0px;
+	}
+	p {
+		text-align: center;
+	}
+	table.fields {
+		margin-top: 20px;
+		td {
+			padding-bottom: 10px;
+		}
+	}
+	label.error {
+		display: none;
+	}
+}
+.page_login, .changePassword {
+	form#login table.fields {
+		margin: auto;
+	}
+	p {
+		margin-bottom: 20px;
+	}
+}
+
+.cmp_form legend {
+    color: @bleu-logo;
+    select {
+	margin-left: 1ex;
+    }
+}
+
+// Fast submission (à fusionner avec Login ?)
+.fastSubmission #fastSubmissionForm {
+    border: solid 1px @bleu-logo-pale;
+    border-radius: 16px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    margin-top: 35px;
+    label {
+        color: lighten(black, 30%);
+    }
+    input[type="text"],
+    input[type="password"],
+    input.AHL_form_fakeInput,
+    select {
+	border-style: none none solid none;
+	border-radius: 0;
+	border-color: @bleu-input;
+	background: none;
+	height: 20px;
+	padding: 0;
+	color: @bleu-verydark;
+    }
+    .AHL_form_fakeInput {
+	width: 100%;
+    }
+    select#sectionId {
+//	margin-bottom: 20px;
+    }
+    option.notInSection {
+        color: lighten(@bleu-verydark, 50%);
+    }
+    button,
+    input[type="button"] {
+	font-family: 'orator_stdregular';
+	text-transform: lowercase;
+	padding: 1px 14px 2px 14px;
+	background: @bleu-button;
+	float: none;
+	position: relative;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	display: table;
+	font-size: 100%;
+	font-weight: bold;
+	line-height: @line-sml;
+	box-shadow: none;
+    }
+    button:hover,
+    input[type=button]:hover {
+        background: @bleu-button-dark2;
+    }
+    input[type="button"] {
+	display: unset;
+    }
+    #lostPassword {
+	text-align: right;
+	span {
+		vertical-align: middle;
+		position: relative;
+		font-family: 'orator_stdregular';
+		text-decoration: none;
+		font-size: 12px;
+		padding-top: 15px;
+		padding-right: 10px;
+		cursor: pointer;
+	}
+    }
+    div.AHL_checkbox {
+        margin-bottom: 10px;
+    }
+    div.form_buttons {
+	height: 0;
+    }
+    #addAuthor {
+        margin-left: 0px;
+        margin-top: 6px;
+    }
+    .submitFormButton {
+	bottom: -20px;
+    }
+    .submitFormButton:hover {
+        background: @bleu-button-dark;
+    }
+    div[name="submission"] {
+	margin-top: 20px;
+    }
+    div textarea {
+	border: none;
+	height: 128px;
+	background-color: transparent;
+	background-image: url('@{baseUrl}/plugins/themes/defaultAHL/styles/bg_line.png');
+	max-width: 100%;
+	color: @bleu-verydark;
+    }
+    .sub_label {
+	font-size: @font-sml;
+        margin-bottom: 0px;
+    }
+    td {
+        padding-right: 5px;
+    }
+    td:last-child {
+        padding-right: 0px;
+    }
+    .authors td {
+        width: 28%;
+    }
+    .authors td:last-child {
+        width: auto;
+    }
+
+}
+.fastSubmission #guidelines {
+	font-size: 0.9 * @font-base;
+	line-height: 1.1 * @font-base;
+	h3 {
+		margin-top: 0px;
+	}
+	li {
+		padding-bottom: 4px;
+	}
+}
+.fastSubmission_thanks {
+	#temporaryPassword {
+		color: @bleu-verydark;
+	}
+	.changePassword {
+		border: solid 1px @bleu-logo-pale;
+		border-radius: 16px;
+		padding: 0px;
+		width: 500px;
+		margin: auto;
+		margin-top: 20px;
+		margin-bottom: 50px;
+		p {
+			margin-top: 0px;
+			// margin-bottom: 5px;
+		}
+		table {
+			margin: auto;
+		}
+	}
+
+}

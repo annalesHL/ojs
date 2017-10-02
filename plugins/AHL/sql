@@ -1,0 +1,6 @@
+ALTER TABLE authors MODIFY COLUMN email VARCHAR(90);
+
+ALTER TABLE section_editors ADD COLUMN section_chief TINYINT NOT NULL DEFAULT 0;
+UPDATE section_editors SET section_chief=1 WHERE user_id=3    # San
+UPDATE section_editors SET section_chief=1 WHERE user_id=6    # Xavier
+UPDATE section_editors SET section_chief=1 WHERE user_id=23   # Sébastien

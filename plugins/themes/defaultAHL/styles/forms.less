@@ -1,0 +1,215 @@
+@import "lib/pkp/styles/form/form.less";
+
+.pkp_form {
+	font-size: @font-base;
+        input[type="date"],
+        input[type="email"],
+        input[type="file"],
+        input[type="month"],
+        input[type="number"],
+        input[type="password"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="text"],
+        input[type="url"],
+        input[type="week"],
+        textarea,
+        select {
+		border: 1px solid fade(black,30%);
+		font-size: @font-base;
+		background: @bleu-bg2;
+		padding-left: 8px;
+		padding-right: 8px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		height: 100%;
+		color: @bleu-verydark;
+	}
+
+	label, legend,
+	.section label, .section legend,
+	.section .label, .section .legend {
+		font-size: 100%;
+		font-style: italic;
+		margin-top: 20px;
+		margin-bottom: 5px;
+	}
+	label:empty, legend:empty,
+	.section label:empty, .section legend:empty,
+	.section .label:empty, .section .legend:empty {
+		margin: 0px;
+	}
+	label.description {
+		margin-top: 0px;
+	}
+	ul.checkbox_and_radiobutton li label {
+		margin-top: 5px;
+	}
+
+	div.form_buttons {
+		margin-top: 10px;
+	}
+	button {
+		border: none;
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		color: white;
+		background: @bleu-button;
+		text-shadow: none;
+		box-shadow: 1px 1px 2px #888888;
+		font-weight: bold;
+	}
+	input.ui-autocomplete-input {
+		padding: 0px;
+		border: none;
+		background: none;
+	}
+	.tagit {
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	.tagit > li.tagit-choice {
+		background: none;
+		padding-top: 8px;
+		padding-left: 0px;
+		padding-right: 3px;
+		vertical-align: top;
+	}
+
+	button:hover {
+		background: @bleu-button-dark;
+		color: white;
+	}
+
+	input.pkp_form_fakeButton {
+		padding-left: 8px;
+		padding-right: 8px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+	}
+
+	label {
+		margin-top: @double;
+	}
+	label.sub_label {
+		margin-top: 0px;
+	}
+	div.section {
+		margin-bottom: 0;
+	}
+	div.section div.pkp_uploader_drop_zone {
+		border: dashed 1px fade(black,30%);
+		background: @bleu-bg2;
+		padding-bottom: 5px;
+	}
+	div.section div.mce-container {
+		padding: 0px;
+		div {
+			padding: 0px;
+		}
+		div.mce-toolbar {
+			padding: 2px;
+			padding-bottom: 4px;
+			background: @bleu-bg;
+		}
+		button {
+			background: initial;			
+		}
+		button:hover {
+			background: initial;			
+		}
+	}
+	fieldset, div.section div.fieldset {
+		padding: 0px;
+		margin: 0px;
+	}
+
+	table {
+		width: 100%;
+	}
+	table td {
+		vertical-align: top;
+	}
+
+	span.error {
+		display: block;
+	}
+
+	input.AHL_form_fileInput {
+		width: 0px;
+		height: 0px;
+		padding: 0;
+		margin: 0;
+		border: 0;
+		overflow: hidden;
+	}
+	input.AHL_form_fakeInput:disabled {
+		pointer-events: none;
+		border: 1px solid #a0a0a0;
+		background: @bleu-bg2;
+		padding-left: 8px;
+		padding-right: 8px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		height: 100%;
+		width: 300px;
+		color: inherit;
+	}
+
+	.pkp_controllers_grid {
+		margin-top: 20px;
+	}
+}
+
+.pkp_form, .page_login {
+	input[type=checkbox].css-checkbox {
+		position:absolute; 
+		z-index:-1000; 
+		left:-1000px; 
+		overflow: hidden; 
+		clip: rect(0 0 0 0); 
+		height:1px; 
+		width:1px; 
+		margin:-1px; 
+		padding:0; 
+		border:0;
+	}
+
+	input[type=checkbox].css-checkbox + label.css-label {
+		padding-left:18px;
+		height:12px; 
+		display:inline-block;
+		line-height:15px;
+		background-repeat:no-repeat;
+		background-position: 0 0;
+		font-size:12px;
+		//vertical-align:middle;
+		cursor:pointer;
+		font-weight: inherit;
+	}
+
+	input[type=checkbox].css-checkbox:checked + label.css-label {
+		background-position: 0 -12px;
+	}
+
+	label.css-label {
+		margin-top: 10px;
+		background-image:url(/checkbox.png);
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+}
+
+body#tinymce {
+	background: @bleu-bg2;
+}
+
+.formRequired {
+	display: none;
+}

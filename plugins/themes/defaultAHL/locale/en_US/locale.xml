@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/themes/ahl/locale/en_US/locale.xml
+  *
+  * Localization strings
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.themes.defaultAHL.name">AHL Default Child Theme</message>
+	<message key="plugins.themes.defaultAHL.description">This theme is a child theme of the default theme.</message>
+
+	<message key="common.submit">Submit</message>
+	<message key="common.dear">Dear</message>
+	<message key="user.login.resetInformation">The form below allows us to set up a new password and log in</message>
+	<message key="user.login.password.notMatch">Your password ans its repetition do not match</message>
+	<message key="user.password.changePassword">Change password</message>
+
+	<!-- Captcha -->
+
+	<message key="common.captchaField.operation">10+5</message>
+	<message key="common.captchaField.result">15</message>
+
+	<!-- Primary Navigation Bar -->
+
+	<message key="about.editorialTeam">editorial board</message>
+	<message key="navigation.contents">contents</message>
+	<message key="navigation.about">about</message>
+	<message key="about.partners">partners</message>
+	<message key="about.submissions">submission</message>
+	<message key="submission.new">new submission</message>
+	<message key="submission.view">view submissions</message>
+
+	<!-- SubmissionFast -->
+
+	<message key="submission.guidelines">Submission guidelines</message>
+	<message key="submission.guidelines.items">
+	&lt;li&gt;Submission of a manuscript acknowledges that the manuscript is original and is not, in whole or in part, published or under consideration for publication elsewhere. It is understood also that the manuscript will not be submitted elsewhere while under consideration for publication in this journal.&lt;/li&gt;
+	&lt;li&gt;A brief abstract of about 150 words or less must be included in the article. It should be self-contained and not make any reference to the bibliography.&lt;/li&gt;
+	&lt;li&gt;All submitted papers must be in PDF format and created by LaTeX. If the submission is accepted, the author agrees to send to LaTeX source to the journal.&lt;/li&gt;
+	</message>
+
+	<message key="submission.section.yourIdentity">Your identity</message>
+	<message key="submission.section.yourSubmission">Your submission</message>
+	<message key="submission.section.routeArticle">Route your article</message>
+	<message key="submission.section.comments">Comments to editors</message>
+
+	<message key="user.hasAccount">Check this box if you have already an account</message>
+	<message key="user.login.emailError">Invalid email or password. Please try again</message>
+	<message key="user.login.emailExists">Email address already in use. Did you &lt;a href="{$url}" target="_blank"&gt;forget your password?&lt;/a&gt;</message>
+
+	<message key="submission.onArxiv">Check this box for retrieving your article from arXiv</message>
+	<message key="submission.arxiv">Enter the arXiv reference</message>
+	<message key="submission.arxiv.example">Example: 0706.1234</message>
+	<message key="submission.arxiv.invalid">Invalid arXiv reference</message>
+	<message key="submission.arxiv.notAuthor">Your name does not match the list of authors of the arXiv article</message>
+	<message key="submission.arxiv.errorPDF">Sorry, an error occurred while uploading the article from arXiv</message>
+
+	<message key="submission.additionalAuthors">Additional Authors</message>
+	<message key="submission.uploadArticle">Upload your article</message>
+	<message key="submission.uploadPDF">Only PDF files are accepted</message>
+	<message key="submission.articleRequired">Article is required</message>
+	<message key="submission.PDFRequired">Article must be uploded in PDF</message>
+
+	<message key="submission.proposeSection">Select a journal's section</message>
+	<message key="submission.proposeEditor">Propose (if you wish) an editor to be in charge of this article</message>
+
+	<message key="submission.completed">Submission completed</message>
+	<message key="submission.thankYou">Thank you for submitting your article to Annales Henri Lebesgue.</message>
+
+	<message key="submission.checkEmail">
+	We sent you a confirmation email at the address you entered on the submission form.
+	&lt;br /&gt;Please check that you received it (double-check your spambox as well).
+	&lt;br /&gt;If you do not, please check on your profile that your email address is correct.
+	</message>
+
+	<message key="submission.newAccount">Your new account</message>
+	<message key="submission.newAccountMessage">
+	An account on this site was automatically created at your name.
+	It allows you to edit your submission and watch its progression.
+	</message>
+	<message key="submission.temporaryPassword">Your (temporary) password is:</message>
+	<message key="submission.changePassword">You can change it, if you wish, using the form below.</message>
+	<message key="user.password.passwordChanged">Password changed successfully</message>
+
+	<message key="submission.whatsNext">What's next?</message>
+	<message key="submission.whatsNextMessage">
+	Your submission has been notified to the editorial board and will be soon be sent to reviewers.
+	Once the review process will be over, you will be notified by email of the decision of the editorial board.
+	Meanwhile, you can:
+	</message>
+	<message key="submission.viewEditSubmission">View/edit your submission and follow the review process</message>
+	<message key="submission.viewEditProfile">View/edit your profile</message>
+
+	<!-- Page not found -->
+
+	<message key="navigation.error404">Error 404</message>
+	<message key="navigation.pageNotFound">Page not found</message>
+</locale>
