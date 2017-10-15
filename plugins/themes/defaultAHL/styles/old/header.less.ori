@@ -1,0 +1,382 @@
+// SAN
+
+// en cas de grand écran on baisse un peu le logo
+.has_site_logo .pkp_head_wrapper {
+    padding-top: @triple;
+    @media(min-width: @screen-desktop) {
+	padding-top: 3 * @triple;
+    }
+}
+
+.pkp_structure_head {
+    background: @bg;
+}
+
+.pkp_navigation_user {
+    font-family: 'orator_stdregular';
+}
+
+// Disable the breadcrumb
+.cmp_breadcrumbs {
+    display: none;
+}
+
+// Center home image
+.pkp_site_name {
+    display: table;
+    a.is_img {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	position: relative;
+	z-index: 100;
+	img {
+	    height: 80px;
+	    max-height: unset;
+	    max-width: unset;
+	}
+    }
+}
+
+// Menu principal
+.pkp_navigation_primary {
+    font-size: @font-base;
+    max-width: unset;
+    text-align: center;
+    display: table;
+    margin-left: auto;
+//    width: fit-content;
+    margin-right: auto;
+    .hline {
+	color: @bleu-menu-border;
+        border-bottom: 1px solid;
+	position: relative;
+    }
+    .hline.bottom {
+	    top: -5px;
+    }
+    .hline.top {
+	    top: 4px;
+    }
+}
+
+// on met un disque au centre de chaque entrée du menu principal
+
+@circle: 30px;
+
+.circle {
+    background: @bleu-logo-bg;
+    border-radius: 50%;
+    height: @circle;
+    width: @circle;
+    margin-right: 0px;
+}
+
+.annales_text {
+    //height: 40px;
+    text-align: center;
+    @media (min-width: @screen-desktop) {
+	background: @bg;
+    }
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.pkp_navigation_primary li {
+    font-family: orator_stdregular;
+    width: 100%;
+    @media (min-width: @screen-desktop) {
+	width: auto;
+    }
+    a {
+	color: @bleu-menu;
+	z-index: 1;
+	position: relative; // otherwise z-index does not work
+	border: 0;
+	text-transform: uppercase;
+	font-weight: bold;
+    }
+    a:hover {
+	color: black;
+	border: 0;
+    }
+    a a {
+	
+    }
+    .circle,
+    .annales_text {
+	margin-left: auto;
+	margin-right: auto;
+	position: relative; // relative, afin que le calcul des marges
+			    // "auto" se fasse (pour center). il
+			    // faudra mettre à "absolute" pour gérer les
+			    // animations en js
+	top: -4px;  // à calculer ? Dépend de @circle (30=>4  50=>-4)
+	margin-top: -@circle - 1; // à remettre à zéro quand on passe en absolute
+    }
+    .annales_text {
+	top: -13px;
+	@media (min-width: @screen-desktop) {
+	    position: absolute; // la position absolue a aussi cet
+	    // avantage que le 'fond blanc' est
+	    // restreint au texte seul (pourquoi?)
+	    margin-top: 0px;
+	    left: 33px;
+	    top: -7px;
+	}
+    }
+}
+.pkp_navigation_primary > ul > li {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+/*
+.pkp_navigation_primary > ul > li:first-child {
+	margin-left: 0px;
+}
+.pkp_navigation_primary > ul > li:last-child {
+	margin-right: 0px;
+}
+*/
+
+
+// le menu est sur une ligne horizontale en mode desktop
+// et vertical/centré pour des écrans plus petits
+.pkp_structure_head .pkp_navigation_primary {
+    li > div {
+	text-align: center;
+    }
+    li:first-child > div { // contents
+	@media (min-width: @screen-desktop) {
+	    //text-align: left;
+	    min-width: 92px;
+	    .circle {
+		//margin-left: 16 + (50 - @circle)/2;  // 16px pour 50px rayon. à calculer ?
+	    }
+	}
+    }
+    li:nth-child(2) > div { // editorial board
+	min-width: 156px;
+    }
+    li:nth-child(3) > div { // AHL
+	a {
+	    color: black;
+	}
+    }
+    li:nth-child(4) > div { // submission
+	min-width: 146px; 
+    }
+    li:last-child > div { // about
+	min-width: 102px;
+	@media (min-width: @screen-desktop) {	
+	    //text-align: right;
+	    .circle {
+		margin-left: auto;
+		//margin-right: 11 + (50 - @circle)/2;// 6px pour rayon 50px. à calculer ?
+	    }
+	}
+    }
+}
+
+// disable caret indicating submenus
+.pkp_navigation_primary .pkp_nav_list [aria-expanded="true"]:before {
+    display: none;  // ne marche pas
+}
+
+.pkp_page_index .additional_content {
+    text-align: center;
+    font-size: @font-base;
+}
+
+// Sous menus (ex: about)
+//
+// ils sont centrés en mode tablette, et au contraire fixés en dessus
+// en mode desktop
+
+
+.pkp_navigation_primary  .pkp_nav_list li {
+    ul {
+	background: red; // @bleu-logo-bg2;
+	border-radius: 15px;
+	margin-left: 20%;
+	li {
+	    padding: 15px;
+	}
+	@media (min-width: @screen-desktop) {
+	    position: absolute;
+	    bottom: 125%;
+	    top: unset;
+	    margin-right: 0;
+	    background: none;
+	    width: 14em;
+	    margin-left: 28px;
+	    li {
+		padding: 0;
+	    }
+	}
+	box-shadow: unset;
+	li a {
+	    height: 24px;
+	    padding: 0;
+	}
+	li a:hover {
+	    background: none;
+	}
+    }
+}
+.pkp_navigation_primary  .pkp_nav_list li:hover > ul {
+    left: 0px;
+}
+
+// Top navigation bar
+// XAVIER
+
+
+.pkp_page_admin .pkp_navigation_backend_primary,
+.pkp_navigation_backend_primary {
+	li a {
+		font-weight: normal;
+	}
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 3000;
+	background: @bg-toolbar;
+	border-bottom: solid 1px @border-toolbar;
+	#notificationsPopover {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0px;
+		width: 500px;
+		background: none;
+		.pkp_controllers_grid {
+			border: none;
+			border-radius: 0px;
+			border-left: solid 1px @border-toolbar;
+			border-right: solid 1px @border-toolbar;
+			border-bottom: solid 1px @border-toolbar;
+			background: @bg-toolbar;
+			.gridPaging {
+				display: none;
+			}
+			.actions {
+				border: none;
+				padding-top: 4px;
+				padding-bottom: 4px;
+				box-shadow: none;
+				background: @bleu-bg2;
+				a {
+					font-weight: normal;
+					border: none;
+				}
+				li {
+					border: none;
+				}
+				li:hover, a:hover {
+					background: inherit;
+					color: black;
+				}
+			}
+		}
+	}
+	> ul {
+		width: 100%;
+		margin: 0px;
+		padding-left: @double;
+		padding-right: @double;
+		text-align: left;
+	}
+	> ul > li {
+		text-align: left;
+		a {
+			margin: 0;
+			padding-left: 6px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			padding-right: @double;
+			color: @bleu-logo;
+		}
+		> ul {
+			z-index: 2000;
+			display: none;
+			@media( max-width: @screen-desktop ) {
+				left: 150px;
+				top: 8px;
+			}
+			@media( min-width: @screen-desktop ) {
+				bottom: 0px;
+				left: 0px;
+			}
+			width: 5 * @triple;
+			li {
+				background: @bg-toolbar;
+				border-left: 1px solid @border-toolbar;
+				border-right: 1px solid @border-toolbar;
+				a {
+					padding-left: 5px;
+					padding-top: 2px;
+					padding-bottom: 2px;
+				}
+			}
+			li:last-child {
+				padding-bottom: 4px;
+				border-bottom: solid 1px @border-toolbar;
+			}
+			li:hover, li:hover a {
+				background: @bg-toolbar;
+				color: black;
+			}
+		}
+	}
+	> ul > li:hover {
+		> a, #userTasks > a {
+			color: black;
+		}
+		> ul, #notificationsPopover {
+			display: initial;
+		}
+	}
+	> ul > li.profile {
+		float: right;
+		padding-right: 0px;
+		text-align: right;
+		min-width: 130px;
+		> a {
+			text-transform: initial;
+			padding-right: 6px;
+		}
+		a {
+			color: black;
+		}
+		> a::before {
+			content: "\f007";
+			font: normal normal normal 14px/1 FontAwesome;
+		}
+		> ul {
+			right: 0px;
+			width: 130px;
+			max-width: 130px; // ???
+			a:hover {
+				color: @bleu-logo;
+			}
+		}
+	}
+}
+.pkp_nav_list [aria-haspopup] > a::after,
+.pkp_nav_list [aria-expanded="true"]::before {
+	display: none;
+}
+
+.loginLink {
+	position: absolute;
+	right: 26px;
+	top: 3px;
+	font-size: 90%;
+	a {
+		color: black;
+		font-family: orator_stdregular;
+		text-decoration: none;
+	}
+}

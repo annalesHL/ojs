@@ -7,3 +7,9 @@ temp
 .buildpath
 .settings
 .DS_Store
+cache/*
+/config.inc.php*
+/plugins/themes.tgz
+/plugins/themes/defaultAHL.tgz
+*~
+/bookmarks.html

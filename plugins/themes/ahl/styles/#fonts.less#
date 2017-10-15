@@ -1,0 +1,24 @@
+/**
+ * @file styles/fonts.less
+ *
+ * Copyright (c) 2014-2017 Simon Fraser University
+ * Copyright (c) 2003-2017 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * @brief Loads custom fonts
+ *
+ */
+
+/**
+ * ORATOR Font
+ */
+@font-face {
+    font-family: 'orator_stdregular';
+    src: url('@{baseUrl}/lib/pkp/font/orator/oratorstd-webfont.eot');
+    src: url('@{baseUrl}/lib/pkp/font/orator/font/oratorstd-webfont.eot?#iefix') format("embedded-opentype"),
+    url('@{baseUrl}/lib/pkp/font/orator/font/oratorstd-webfont.woff') format("woff"), url("font/oratorstd-webfont.ttf") format("true\
+type"), url("font/oratorstd-webfont.svg#orator_stdregular") format("svg");
+  font-weight: normal;
+    font-style: normal;
+    }
+    

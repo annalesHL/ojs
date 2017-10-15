@@ -16,6 +16,7 @@
  * @ingroup pages_login
  */
 
+/*
 switch ($op) {
 	case 'index':
 	case 'signIn':
@@ -31,5 +32,25 @@ switch ($op) {
 		import('pages.login.LoginHandler');
 		break;
 }
+*/
+
+switch ($op) {
+	case 'index':
+	case 'signIn':
+	case 'signOut':
+	case 'lostPassword':
+	case 'resetPassword':
+		define('HANDLER_CLASS', 'LoginByEmailHandler');
+		import('plugins.AHL.pages.login.LoginByEmailHandler');
+		break;
+	//case 'changePassword':
+	//case 'savePassword':
+	case 'signInAsUser':
+	case 'signOutAsUser':
+		define('HANDLER_CLASS', 'LoginHandler');
+		import('pages.login.LoginHandler');
+		break;
+}
 
 ?>
+

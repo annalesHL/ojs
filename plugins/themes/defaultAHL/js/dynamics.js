@@ -155,10 +155,10 @@ var dynRandomPiecesfn = function (size, duration) {
 // bbox = [ left0, left1, top0, top1 ]
 // force est une fonction de la position
 var dynBounce2D = function (v0, bbox, force) {
-    let mass = 1;
-    let radius = 45;
-    let sqr2 = Math.sqrt(2);
-    let deg2Rad = Math.PI/180;
+    var mass = 1;
+    var radius = 45;
+    var sqr2 = Math.sqrt(2);
+    var deg2Rad = Math.PI/180;
     var v = null;
     var pos = null;
     if ( force == undefined ) { force = function (x) {
@@ -230,9 +230,9 @@ function handleOrientation(event) {
 //	alert (gravity);
     }
     if ( alpha != null ) { 
-	{ let winAngle = window.orientation * Math.PI / 180;
-	  let x = 10 * Math.sin(gamma * Math.PI / 180);
-	  let y = 10 * Math.sin(beta * Math.PI / 180);
+	{ var winAngle = window.orientation * Math.PI / 180;
+	  var x = 10 * Math.sin(gamma * Math.PI / 180);
+	  var y = 10 * Math.sin(beta * Math.PI / 180);
 	  gravity = [ x * Math.cos(winAngle) + y * Math.sin(winAngle),
 		      -x * Math.sin(winAngle) + y * Math.cos(winAngle) ];
 	  // console.log(absolute, alpha, beta, gamma, winAngle, gravity);

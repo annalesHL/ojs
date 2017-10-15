@@ -43,11 +43,14 @@
         <div class="pkp_site_name_wrapper">
           {* Logo or site title. Only use <h1> heading on the homepage.
              Otherwise that should go to the page title. *}
-          {if $requestedOp == 'index'}
+	     
+	  {* SAN: je désactive ça car ça crée une légère différence de mise en page *}
+          {* {if $requestedOp == 'index'}
             <h1 class="pkp_site_name">
-          {else}
+          {else} *} 
             <div class="pkp_site_name">
-          {/if}
+          {* {/if} *}
+	  
             {if $currentContext && $multipleContexts}
               {url|assign:"homeUrl" journal="index" router=$smarty.const.ROUTE_PAGE}
             {else}
@@ -68,11 +71,12 @@
                 <img src="{$baseUrl}/templates/images/structure/logo.png" alt="{$applicationName|escape}" title="{$applicationName|escape}" width="180" height="90" />
               </a>
             {/if}
-          {if $requestedOp == 'index'}
+	    
+          {* {if $requestedOp == 'index'}
             </h1>
-          {else}
+          {else} *}
             </div>
-          {/if}
+          {* {/if} *}
         </div>
 
         {* Primary site navigation *}

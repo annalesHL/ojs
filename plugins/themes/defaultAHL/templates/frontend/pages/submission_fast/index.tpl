@@ -58,6 +58,16 @@
   <div class="arxiv">
   <label>{translate key="submission.arxiv"}</label>
   {fbvElement type="text" label="submission.arxiv.example" id="arxiv" name="arxiv" value=$arxiv required=true}
+  <div id="arxivtitle"></div>
+  <script type="text/javascript">
+	balanceText($('#arxivtitle'), {ldelim} watch: true {rdelim});
+	$("[name=arxiv]").change(function(event) {ldelim}
+		$('#arxivtitle').pkpAjaxHtml(
+			"{url router=$smarty.const.ROUTE_COMPONENT component="modals.arxiv.ArxivInfoHandler" op="getTitle"}?arxivId=" + escape(event.target.value),
+			function() {ldelim} balanceText.updateWatched(); MathJax.Hub.Queue(["Typeset",MathJax.Hub]); {rdelim}
+		);
+	{rdelim});
+  </script>
   </div>
 
   <div class="fieldset submission">

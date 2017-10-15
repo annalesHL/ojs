@@ -35,3 +35,6 @@
 [submodule "plugins/reports/reviewReport"]
 	path = plugins/reports/reviewReport
 	url = https://github.com/pkp/reviewReport
+[submodule "plugins/themes/defaultAHL/js/balance-text"]
+	path = plugins/themes/defaultAHL/js/balance-text
+	url = https://github.com/adobe-webplatform/balance-text.git

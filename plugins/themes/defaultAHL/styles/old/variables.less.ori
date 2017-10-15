@@ -1,0 +1,46 @@
+@bg: #AA0102; // rouge, pour débugguer. à changer à la fin en blanc
+@bg-border-color: transparent; // supprimer ça pour débugguer
+@sidebar-width: 0; // on supprime la colonne de droite.
+
+// Toolbar
+@bg-toolbar: white;
+@border-toolbar: lighten(black, 60%);
+
+// pour la taille des caractères, ce n'est pas facile à choisir...
+// voir par exemple
+// http://typecast.com/blog/a-more-modern-scale-for-web-typography
+
+@font-sml:               14px;
+@font-base:              16px;
+
+// attention le chargement des fontes est fait dans
+// lib/pkp/styles/fonts.less
+
+@font: 'lettergothic', "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+
+//@bleu-logo:      #0CC6DE;  // pantone 311U
+@bleu-logo:      #00A7D4;  // pantone 312U
+// #00BCDD d'après https://www.e-paint.co.uk/Lab_values.asp?cRange=Pantone%20U&cRef=311+U
+// le site http://www.rgbcolor.xyz/pantone/211.html propose #28C4D8
+// ou encore #0CC6DE, see http://www.perbang.dk/rgb/0CC6DE/
+// sur le pdf de Desailly:  #5ecadd
+
+@bg:		tint(spin(@bleu-logo, 90), 99%);
+@bg-base:	@bg;
+
+@bleu-logo-dark: darken(@bleu-logo, 20%);
+@bleu-logo-bg:   fade(@bleu-logo, 30%);
+
+@bleu-bg:	tint(@bleu-logo, 85%);
+@bleu-bg2:	tint(@bleu-logo, 96%);
+
+@bleu-input:	fade(@bleu-logo, 30%);
+
+@bleu-menu:	 @bleu-logo;
+@bleu-menu-border: tint(@bleu-logo, 40%);
+
+@bleu-button:	tint(@bleu-logo, 30%);
+@bleu-button-dark: darken(@bleu-logo, 5%);
+@bleu-button-dark2: darken(@bleu-logo, 0%);
+
+@bleu-verydark:	shade(@bleu-logo, 50%);

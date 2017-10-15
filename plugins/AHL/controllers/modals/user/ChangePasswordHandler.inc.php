@@ -47,7 +47,6 @@ class ChangePasswordHandler extends Handler {
                 }
 		return $templateMgr->fetchJSON('frontend/components/changePassword.tpl');
 	}
-
 }
 
 ?>

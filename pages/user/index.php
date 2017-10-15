@@ -30,6 +30,9 @@ switch ($op) {
 	case 'register':
 	case 'registerUser':
 	case 'registrationComplete':
+		define('HANDLER_CLASS', 'RegistrationWithoutUsernameHandler');
+		import('plugins.AHL.pages.user.RegistrationWithoutUsernameHandler');
+		break;
 	case 'activateUser':
 		define('HANDLER_CLASS', 'RegistrationHandler');
 		import('lib.pkp.pages.user.RegistrationHandler');

@@ -1,5 +1,5 @@
 {**
- * templates/
+ * templates/frontend/components/changePassword.tpl
  *
  * XAVIER
  *

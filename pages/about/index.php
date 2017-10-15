@@ -18,16 +18,20 @@
 
 switch ($op) {
 case 'index':
-case 'submissions':
+//case 'submissions':
 case 'contact':
 		define('HANDLER_CLASS', 'AboutContextHandler');
 		import('lib.pkp.pages.about.AboutContextHandler');
 		break;
+/*
 case 'aboutThisPublishingSystem':
 		define('HANDLER_CLASS', 'AboutSiteHandler');
 		import('lib.pkp.pages.about.AboutSiteHandler');
 		break;
 case 'partners': // SAN
+*/
+case 'news':
+case 'faq':
 case 'editorialTeam': // XAVIER
 		define('HANDLER_CLASS', 'AboutHandler');
 		import('plugins.AHL.pages.about.AboutHandler');

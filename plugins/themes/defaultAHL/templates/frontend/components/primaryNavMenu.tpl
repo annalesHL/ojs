@@ -76,21 +76,26 @@
 
     <li aria-haspopup="true" aria-expanded="false">
       <div>
-        <a href="{url router=$smarty.const.ROUTE_PAGE page="about"}">
-          {translate key="navigation.about"}
+        <a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="news"}">
+          {translate key="navigation.info"}
 	</a>
 	<div class="circle"></div>
       </div>
       {if $subMenu}
       <ul>
         <li>
+          <a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="news"}">
+            {translate key="navigation.news"}
+          </a>
+        </li>
+        <li>
           <a href="{url router=$smarty.const.ROUTE_PAGE page="about"}">
             {translate key="about.aboutContext"}
           </a>
         </li>
         <li>
-          <a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="partners"}">
-            {translate key="about.partners"}
+          <a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="faq"}">
+            {translate key="navigation.faq"}
           </a>
         </li>
         {if $currentJournal->getSetting('mailingAddress') || $currentJournal->getSetting('contactName')}

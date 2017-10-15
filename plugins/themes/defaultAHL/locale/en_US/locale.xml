@@ -26,7 +26,9 @@
 
 	<message key="about.editorialTeam">editorial board</message>
 	<message key="navigation.contents">contents</message>
-	<message key="navigation.about">about</message>
+	<message key="navigation.info">about</message>
+	<message key="navigation.news">news</message>
+	<message key="navigation.faq">faq</message>
 	<message key="about.partners">partners</message>
 	<message key="about.submissions">submission</message>
 	<message key="submission.new">new submission</message>
@@ -38,7 +40,7 @@
 	<message key="submission.guidelines.items">
 	&lt;li&gt;Submission of a manuscript acknowledges that the manuscript is original and is not, in whole or in part, published or under consideration for publication elsewhere. It is understood also that the manuscript will not be submitted elsewhere while under consideration for publication in this journal.&lt;/li&gt;
 	&lt;li&gt;A brief abstract of about 150 words or less must be included in the article. It should be self-contained and not make any reference to the bibliography.&lt;/li&gt;
-	&lt;li&gt;All submitted papers must be in PDF format and created by LaTeX. If the submission is accepted, the author agrees to send to LaTeX source to the journal.&lt;/li&gt;
+	&lt;li&gt;All submitted papers must be in PDF format and created by LaTeX. If the submission is accepted, the author agrees to send the LaTeX source to the journal.&lt;/li&gt;
 	</message>
 
 	<message key="submission.section.yourIdentity">Your identity</message>
@@ -46,7 +48,7 @@
 	<message key="submission.section.routeArticle">Route your article</message>
 	<message key="submission.section.comments">Comments to editors</message>
 
-	<message key="user.hasAccount">Check this box if you have already an account</message>
+	<message key="user.hasAccount">Check this box if you already have an account</message>
 	<message key="user.login.emailError">Invalid email or password. Please try again</message>
 	<message key="user.login.emailExists">Email address already in use. Did you &lt;a href="{$url}" target="_blank"&gt;forget your password?&lt;/a&gt;</message>
 
@@ -92,6 +94,18 @@
 	</message>
 	<message key="submission.viewEditSubmission">View/edit your submission and follow the review process</message>
 	<message key="submission.viewEditProfile">View/edit your profile</message>
+
+	<!-- Newsletter -->
+
+	<message key="newsletter.subscribe">Subscribe to&lt;br&gt;the newsletter</message>
+	<message key="newsletter.alreadySubscriber">You already subscribed to the newsletter</message>
+	<message key="newsletter.invalidEmail">Invalid email address</message>
+	<message key="newsletter.subscriptionSuccess">
+	Your email address: {$email}&lt;br&gt;has been successfully added to the recipients of our newsletter.&lt;br&gt;
+	You should have received a welcome message with extra information. Check your emails.
+	</message>
+	<message key="newsletter.showMore">Show more</message>
+	<message key="newsletter.showLess">Show less</message>
 
 	<!-- Page not found -->
 

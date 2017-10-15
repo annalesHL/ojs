@@ -122,6 +122,10 @@ a {
 	float: left;
 }
 
+.throbber {
+	.pkp_spinner;
+}
+
 
 // Header style
 @import "plugins/themes/defaultAHL/styles/header.less";
@@ -186,7 +190,7 @@ p:first-child,
 	.pkp_site_name_backend_wrapper {
 		position: absolute;
 		left: 0px;
-		top: 12px;
+		top: 2 * @menu-padding;
 	}
 
 	.pkp_site_name_backend_wrapper .is_img img {
@@ -196,7 +200,10 @@ p:first-child,
 }
 
 .pkp_structure_page {
+    margin-top: 0;
+    @media( min-width: @screen-desktop ) {
 	margin-top: @triple;
+    }
 }
 
 .pkp_structure_backend {
@@ -263,7 +270,7 @@ p:first-child,
 			background: none;
 		}
 		li {
-			display: initial;
+			display: list-item;
 			background: none;
 		}
 	}
@@ -274,7 +281,7 @@ p:first-child,
 		font-size: 105%;
 		border-left: solid 2px transparent;
 		border-right: solid 1px transparent;
-		border-bottom: solid 1px @bleu-menu;
+		border-bottom: solid 1px @bleu-menu-border;
 		margin-bottom: 20px;
 		padding-left: 0px;
 		background: none;
@@ -288,10 +295,10 @@ p:first-child,
 	.ui-tabs-active {
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
-		border-left: solid 1px @bleu-menu;
-		border-right: solid 1px @bleu-menu;
+		border-left: solid 1px @bleu-menu-border;
+		border-right: solid 1px @bleu-menu-border;
 		a::before {
-			background: @bleu-menu;
+			background: @bleu-menu-border;
 		}
 	}
 	.ui-tabs-panel {
@@ -478,14 +485,17 @@ p:first-child,
 	color: @text;
 }
 
-// remove large padding-bottom
+// remove large padding-bottom sur la page d'accueil
+.pkp_page_index div .pkp_structure_frontend {
+    padding-bottom: 0;
+}
 div .pkp_structure_frontend {
     float: none;
     padding-left: 0px;
     padding-right: 0px;
     // font-family: 'orator_stdregular';
     @media(min-width: @screen-desktop) {
-        width: 772px;
+        width: @menu-width;
         margin: auto;
     }
     line-height: 22px;
@@ -497,7 +507,7 @@ div .pkp_structure_frontend {
     }
 
     // on met le texte au dessus du logo animé
-    z-index: 100;
+    z-index: 200;
 
     li::before {
         content: ">";
@@ -588,7 +598,7 @@ div .pkp_structure_frontend {
 // Login and register
 
 .page_login, .page_register {
-	border: solid 1px @bleu-logo-pale;
+	border: solid 1px @bleu-menu-border;
 	border-radius: 16px;
 	padding: 0px;
 	margin-top: 35px;
@@ -609,6 +619,18 @@ form#login, form#register {
 	display: table;
 	float: none;
 	max-width: 100%;
+	table tbody { // on fait en sorte que le champ email soit sous
+		      // le label en cas d'écran étroit
+	    display: grid;
+	    @media( min-width: @screen-desktop ) {
+		display: auto;
+	    }
+	    td {
+		@media( max-width: @screen-desktop ) { 
+		    display: block;
+		}
+	    }
+	}
 	input[type="text"],
 	input[type="password"],
 	select {
@@ -616,7 +638,9 @@ form#login, form#register {
 		border-radius: 0;
 		border-color: @bleu-input;
 		height: 20px;
-		margin-left: 2ex;
+		@media( min-width: @screen-desktop ) {
+		    margin-left: 2ex;
+		}
 		padding: 0;
 		color: @bleu-verydark;
 		background: @bg;
@@ -624,13 +648,19 @@ form#login, form#register {
 	}
 	input[type="text"],
 	select {
+	    width: 100%;
+	    @media( min-width: @screen-desktop ) {  
 		width: 20em;
+	    }
 	}
 	fieldset {
 		margin-bottom: 0px;
 	}
 	input[type="password"] {
+	    width: auto;
+	    @media( min-width: @screen-desktop ) {      
 		width: 10em;
+	    }
 	}
 	.submit:hover {
 		background: @bleu-button-dark;
@@ -684,7 +714,7 @@ form#login, form#register {
 }
 
 
-// Register
+// Register (and login...)
 
 .page_register {
 	margin-top: 10px;
@@ -712,12 +742,17 @@ form#login, form#register {
 	}
 }
 .page_login, .changePassword {
-	form#login table.fields {
+    form#login {
+	table.fields {
 		margin: auto;
-	}
+		@media(min-width: @screen-desktop) {
+		    margin: auto;
+		}
+	}	
 	p {
 		margin-bottom: 20px;
 	}
+    }
 }
 
 .cmp_form legend {
@@ -729,7 +764,7 @@ form#login, form#register {
 
 // Fast submission (à fusionner avec Login ?)
 .fastSubmission #fastSubmissionForm {
-    border: solid 1px @bleu-logo-pale;
+    border: solid 1px @bleu-menu-border;
     border-radius: 16px;
     padding-left: 30px;
     padding-right: 30px;
@@ -820,9 +855,9 @@ form#login, form#register {
     }
     div textarea {
 	border: none;
-	height: 128px;
+	height: 5 * @line-base;
 	background-color: transparent;
-	background-image: url('@{baseUrl}/plugins/themes/defaultAHL/styles/bg_line.png');
+	background-image: url('@{baseUrl}/plugins/themes/defaultAHL/styles/bg_line24.png');
 	max-width: 100%;
 	color: @bleu-verydark;
     }
@@ -843,6 +878,20 @@ form#login, form#register {
         width: auto;
     }
 
+    #arxivtitle {
+        font-size: @font-sml;
+        font-style: italic;
+        text-align: right;
+        margin-left: 200px;
+        line-height: 1.4 * @font-sml;
+        text-wrap: balance;
+        .error {
+             border-left: none;
+             border-right: solid 5px red;
+             padding-right: 10px;
+             color: red;
+        }
+    }
 }
 .fastSubmission #guidelines {
 	font-size: 0.9 * @font-base;
@@ -859,7 +908,7 @@ form#login, form#register {
 		color: @bleu-verydark;
 	}
 	.changePassword {
-		border: solid 1px @bleu-logo-pale;
+		border: solid 1px @bleu-menu-border;
 		border-radius: 16px;
 		padding: 0px;
 		width: 500px;
@@ -875,4 +924,165 @@ form#login, form#register {
 		}
 	}
 
+}
+
+// Newsletter
+
+#subscriptionNewsletter {
+	text-align: right;
+	margin-bottom: 40px;
+	#subscriptionForm {
+		fieldset, > div {
+			border: none;
+			display: inline-table;
+			vertical-align: text-bottom;
+			padding: 0;
+		}
+
+		.label {
+			font-size: @font-sml;
+			font-style: italic;
+			.required {
+				color: red;
+				margin-left: -5px;
+			}
+			margin-right: 5px;
+		}
+
+		.pkp_form_error {
+			text-align: left;
+			color: red;
+			font-size: @font-sml;
+		}
+		label.error {
+			display: none;
+		}
+    
+		input[type="text"] {
+			border-style: none none solid none;
+			border-bottom-width: 1px;
+			border-radius: 0;
+			border-color: @bleu-input;
+			background: none;
+			height: 20px;
+			padding: 0;
+			color: @bleu-verydark;
+			width: 300px;
+		}
+		.buttons {
+			height: 0;
+			padding: 0;
+			border: solid @bleu-button 1px;
+			border-radius: 10px;
+			background: @bg;
+			button {
+				margin: 0;
+				display: inline-block;
+				font-family: 'orator_stdregular';
+				text-transform: lowercase;
+				background: @bleu-button;
+				color: white;
+				border: none;
+				border-top-left-radius: 9px;
+				border-bottom-left-radius: 9px;
+				line-height: 17px;
+				padding-left: 15px;
+				padding-right: 15px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				font-size: @font-base;
+			}
+			.howmany {
+				display: inline-block;
+				vertical-align: top;
+				vertical-align: 10px;
+				font-size: @font-sml;
+				letter-spacing: -1px;
+				padding-left: 7px;
+				padding-right: 7px;
+				color: @bleu-button-dark;
+				min-width: 40px;
+				text-align: center;
+				.smallspace {
+					padding-left: 2px;
+				}
+			}
+		}
+		.submit:hover {
+			background: @bleu-button-dark2;
+		}
+	}
+	.success {
+		color: green;
+		font-size: @font-sml;
+		font-style: italic;
+		line-height: 1.5 * @font-sml;
+		border-right: solid 5px green;
+		padding-right: 10px;
+		.email {
+			font-style: normal;
+			color: black;
+		}
+		.email::before {
+			content: "<";
+			padding-right: 1px;
+			color: lighten(black,40%);
+		}
+		.email::after {
+			content: ">";
+			padding-left: 1px;
+			color: lighten(black,40%);
+		}
+	}
+}
+
+.newsItem {
+	margin-top: 30px;
+	.header {
+		padding-bottom: 2px;
+		margin-bottom: 8px;
+		border-bottom: 1px solid tint(@bleu-logo,70%);
+	}
+	.date {
+		color: @bleu-logo;
+		font-size: @font-base;
+	}
+	.title {
+		font-family: 'orator_stdregular';
+		font-size: 1.15 * @font-base;
+	}
+	.message {
+		max-height: 85px;
+		overflow: hidden;
+		transition: 0.5s max-height;
+	}
+	.more, .less {
+		cursor: pointer;
+		color: black;
+		font-family: 'orator_stdregular';
+		font-size: @font-sml;
+		margin-top: 5px;
+	}
+	.less {
+		margin-top: 2px;
+		display: none;
+	}
+}
+
+// FAQ
+
+.page_faq_ahl {
+	.item {
+		margin-top: 20px;
+		.question {
+			font-size: 1.1 * @font-base;
+			font-family: 'orator_stdregular';
+			padding-bottom: 5px;
+		}
+		.question::before {
+			content: ">";
+		}
+		.answer {
+		}
+	}
 }

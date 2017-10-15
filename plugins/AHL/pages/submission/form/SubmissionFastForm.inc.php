@@ -27,6 +27,8 @@ import('plugins.generic.externalFeed.simplepie.SimplePie');
 
 import('lib.pkp.classes.mail.SubmissionMailTemplate');
 
+import('plugins.AHL.classes.Arxiv');
+
 
 class SubmissionFastForm extends Form {
 	var $context;
@@ -191,23 +193,21 @@ class SubmissionFastForm extends Form {
 				$this->addError('arxiv', __("submission.arxiv.invalid"));
 				$this->addErrorField('arxiv');
 			} else {
-				$url = 'http://export.arxiv.org/api/query?id_list=' . $arxivId;
-				$feed = new SimplePie($url);
-				$result = $feed->get_item();
-				if (preg_match("/error/", $result->get_id())) {
+				$arxiv = new Arxiv($arxivId);
+				if (!$arxiv->isValid()) {
 					$this->addError('arxiv', __("submission.arxiv.invalid"));
 					$this->addErrorField('arxiv');
 				} else {
 					// Title and abstract
-					$this->_title = $result->get_title();
-					$this->_abstract = $result->get_content();
+					$this->_title = $arxiv->getTitle();
+					$this->_abstract = $arxiv->getAbstract();
 
 					// Authors
 					$canonicalFirstName = $this->_canonicalize($submitterFirstName);
 					$canonicalLastName = $this->_canonicalize($submitterLastName);
 					$isAmongAuthors = false;
 					$this->_authors = array();
-					foreach ($result->get_authors() as $author) {
+					foreach ($arxiv->getAuthors() as $author) {
 						$name = $author->get_name();
 						$canonical = $this->_canonicalize($name);
 						if (strpos($canonical, $canonicalFirstName) !== false
@@ -231,9 +231,7 @@ class SubmissionFastForm extends Form {
 					}
 
 					// Article in PDF
-					foreach($result->get_links('related') as $url) {
-						if (strpos($url, "pdf") !== false) { $arXivPDF = $url; break; }
-					}
+					$arxivPDF = $arxiv->getPDFUrl();
 					if ($arXivPDF === null) {
 						$this->addError('arxiv', __("submission.arxiv.errorPDF"));
 						$this->addErrorField('arxiv');

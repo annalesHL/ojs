@@ -6,15 +6,39 @@
 @bg-toolbar: white;
 @border-toolbar: lighten(black, 60%);
 
-@font-sml:               12px;
-@font-base:              14px;
+// pour la taille des caractères, ce n'est pas facile à choisir...
+// voir par exemple
+// http://typecast.com/blog/a-more-modern-scale-for-web-typography
+
+@base:                   12px;
+@half:                   @base / 2;
+@double:                 @base * 2;
+@triple:                 @base * 3;
+@quadruple:              @base * 4;
+@quintuple:              @base * 5;
+
+//
+// Typography
+//
+@font-sml:               14px;
+@line-sml:               @double;
+@font-base:              16px;
+@line-base:              @double;
+@line-base-large:        @line-base + 5; // large blocks of text
+@font-bump:              18px;
+@line-bump:              @double;
+@font-lead:              20px;
+@line-lead:              @triple;
+@font-header:            28px;
+@line-header:            @triple;
 
 // attention le chargement des fontes est fait dans
 // lib/pkp/styles/fonts.less
 
 @font: 'lettergothic', "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 
-@bleu-logo:      #0CC6DE;  // pantone 311U
+//@bleu-logo:      #0CC6DE;  // pantone 311U
+@bleu-logo:      #00A7D4;  // pantone 312U
 // #00BCDD d'après https://www.e-paint.co.uk/Lab_values.asp?cRange=Pantone%20U&cRef=311+U
 // le site http://www.rgbcolor.xyz/pantone/211.html propose #28C4D8
 // ou encore #0CC6DE, see http://www.perbang.dk/rgb/0CC6DE/
@@ -24,7 +48,6 @@
 @bg-base:	@bg;
 
 @bleu-logo-dark: darken(@bleu-logo, 20%);
-@bleu-logo-pale: lighten(@bleu-logo, 10%);
 @bleu-logo-bg:   fade(@bleu-logo, 30%);
 
 @bleu-bg:	tint(@bleu-logo, 85%);
@@ -33,6 +56,7 @@
 @bleu-input:	fade(@bleu-logo, 30%);
 
 @bleu-menu:	 @bleu-logo;
+@bleu-menu-border: tint(@bleu-logo, 40%);
 
 @bleu-button:	tint(@bleu-logo, 30%);
 @bleu-button-dark: darken(@bleu-logo, 5%);
@@ -40,4 +64,7 @@
 
 @bleu-verydark:	shade(@bleu-logo, 50%);
 
+// Autres variables partagées par ahl.less et header.less
 
+@menu-width: 872px;
+@menu-padding: 14px;

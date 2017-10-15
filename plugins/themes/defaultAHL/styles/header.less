@@ -24,16 +24,25 @@
 // Center home image
 .pkp_site_name {
     display: table;
+    > a {
+	padding-top: 0;
+	@media( min-width: @screen-desktop ) {
+	    padding-top: @base;
+	}
+    }
     a.is_img {
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 10px;
+	margin-bottom: 2 * @menu-padding + @base;
+	@media( min-width: @screen-desktop ) {
+	    margin-bottom: 10px;
+	}
 	position: relative;
 	z-index: 100;
 	img {
 	    height: 80px;
-	    max-height: unset;
-	    max-width: unset;
+	    max-height: none;
+	    max-width: none;
 	}
     }
 }
@@ -41,22 +50,48 @@
 // Menu principal
 .pkp_navigation_primary {
     font-size: @font-base;
-    max-width: unset;
+    max-width: none;
     text-align: center;
     display: table;
     margin-left: auto;
 //    width: fit-content;
     margin-right: auto;
+    > ul > li > div {  // hauteur du menu
+	height: @line-base + @menu-padding;
+	@media( min-width: @screen-desktop ) {
+	    height: @line-base + @menu-padding * 2;
+	}
+    }
+    ul a {// En mode mobile, le padding top/bottom
+	   // influence la height seulement en si le .circle est en
+	   // position:absolute... pourquoi???
+	padding-top: @menu-padding/2;
+	padding-bottom: @menu-padding/2;
+	@media( min-width: @screen-desktop ) {
+	    padding-top: @menu-padding;
+	    padding-bottom: @menu-padding;
+	}
+    }
     .hline {
-	color: @bleu-logo-pale;
+	color: @bleu-menu-border;
         border-bottom: 1px solid;
 	position: relative;
+	@media( min-width: @screen-desktop ) {
+	    width: @menu-width;
+	    margin: auto;
+	}
     }
     .hline.bottom {
+	top: -1px;
+	@media( min-width: @screen-desktop ) {
 	    top: -5px;
+	}
     }
     .hline.top {
+	top: 1px;
+	@media( min-width: @screen-desktop ) {
 	    top: 4px;
+	}
     }
 }
 
@@ -66,10 +101,16 @@
 
 .circle {
     background: @bleu-logo-bg;
+    opacity: 0.5;
     border-radius: 50%;
     height: @circle;
     width: @circle;
     margin-right: 0px;
+    margin-top: -@circle - @menu-padding; // à remettre à zéro quand on passe en absolute
+    top: 10px;
+    @media (min-width: @screen-desktop) {
+	top: 3px;
+    }
 }
 
 .annales_text {
@@ -95,6 +136,7 @@
 	border: 0;
 	text-transform: uppercase;
 	font-weight: bold;
+	white-space: nowrap;
     }
     a:hover {
 	color: black;
@@ -111,24 +153,27 @@
 			    // "auto" se fasse (pour center). il
 			    // faudra mettre à "absolute" pour gérer les
 			    // animations en js
-	top: -4px;  // à calculer ? Dépend de @circle (30=>4  50=>-4)
-	margin-top: -@circle - 1; // à remettre à zéro quand on passe en absolute
     }
     .annales_text {
-	top: -13px;
+	top: -@menu-padding/2;
+	margin-top: -@circle - @menu-padding; // à remettre à zéro quand on passe en absolute
 	@media (min-width: @screen-desktop) {
 	    position: absolute; // la position absolue a aussi cet
 	    // avantage que le 'fond blanc' est
 	    // restreint au texte seul (pourquoi?)
 	    margin-top: 0px;
-	    left: 33px;
-	    top: -7px;
+	    left: 3em;
+	    top: -8px;
 	}
     }
 }
 .pkp_navigation_primary > ul > li {
-	margin-left: 10px;
-	margin-right: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    @media (min-width: @screen-desktop) {  // utile ?
+	margin-left: 5px;
+	margin-right: 5px;
+    }
 }
 /*
 .pkp_navigation_primary > ul > li:first-child {
@@ -142,33 +187,59 @@
 
 // le menu est sur une ligne horizontale en mode desktop
 // et vertical/centré pour des écrans plus petits
-.pkp_structure_head .pkp_navigation_primary {
+// largeur totale: @menu-width (dans variables.less)
+@menu-width-1-5: 7em; // largeur des items 1 et 5
+@menu-width-2-4: 12em; // largeur des items 2 et 4
+@menu-width-3:   11em; // largeur de l'item central (3)
+.pkp_structure_head .pkp_navigation_primary > ul {
     li > div {
 	text-align: center;
     }
-    li:first-child > div { // contents
+    > li:first-child > div { // contents
+	border-bottom: 1px solid @bleu-input;
 	@media (min-width: @screen-desktop) {
+	    border-bottom: none;
 	    //text-align: left;
-	    min-width: 92px;
+	    //min-width: 92px;
+	    width: @menu-width-1-5;
 	    .circle {
 		//margin-left: 16 + (50 - @circle)/2;  // 16px pour 50px rayon. à calculer ?
 	    }
 	}
     }
-    li:nth-child(2) > div { // editorial board
-	min-width: 156px;
+    > li:nth-child(2) > div { // editorial board
+	border-bottom: 1px solid @bleu-input;
+	@media (min-width: @screen-desktop) {
+	    width: @menu-width-2-4;
+	    border-bottom: none;
+	}
     }
-    li:nth-child(3) > div { // AHL
+    > li:nth-child(3) { // en mode téléphone, on monte l'item 3 (AHL) au dessus des autres
+	position: absolute;
+	top: -33px;
+	left: 0;
+	@media( min-width: @screen-desktop ) { // item 3 en place normale
+	    position: relative;
+	    top: auto;
+	    left: auto;
+	    width: @menu-width-3;
+	}
+    }
+    > li:nth-child(3) > div { // AHL
 	a {
 	    color: black;
 	}
     }
-    li:nth-child(4) > div { // submission
-	min-width: 146px; 
+    > li:nth-child(4) > div { // submission
+	border-bottom: 1px solid @bleu-input;
+	@media (min-width: @screen-desktop) {
+	    border-bottom: none;
+	    width: @menu-width-2-4;
+	}
     }
-    li:last-child > div { // about
-	min-width: 102px;
-	@media (min-width: @screen-desktop) {	
+    > li:last-child > div { // about
+	@media (min-width: @screen-desktop) {
+	    width: @menu-width-1-5;
 	    //text-align: right;
 	    .circle {
 		margin-left: auto;
@@ -192,11 +263,12 @@
 //
 // ils sont centrés en mode tablette, et au contraire fixés en dessus
 // en mode desktop
-
-
-.pkp_navigation_primary  .pkp_nav_list li {
-    ul {
-	background: red; // @bleu-logo-bg2;
+.pkp_navigation_primary  .pkp_nav_list {
+    li:hover ul {
+	opacity: 1;
+    }
+    li ul {
+	background: @bleu-bg2;
 	border-radius: 15px;
 	margin-left: 20%;
 	li {
@@ -204,17 +276,21 @@
 	}
 	@media (min-width: @screen-desktop) {
 	    position: absolute;
-	    bottom: 125%;
-	    top: unset;
+	    bottom: 100%;
+	    -webkit-transition: opacity 0.8s;
+	    transition: opacity 0.8s;
+	    opacity: 0;
+	    padding-bottom: @base;
+	    top: auto;
 	    margin-right: 0;
 	    background: none;
+	    padding-left: 10px;
 	    width: 14em;
-	    margin-left: 28px;
 	    li {
 		padding: 0;
 	    }
 	}
-	box-shadow: unset;
+	box-shadow: none;
 	li a {
 	    height: 24px;
 	    padding: 0;
@@ -232,151 +308,187 @@
 // XAVIER
 
 
+.pkp_navigation_backend_primary {
+    display: none; // à corriger... et mettre du js pour montrer le menu...
+}
+.pkp_navigation_backend_primary {
+    @media(min-width: @screen-desktop) {
+	display: block;
+    }
+}
+
+@submenu-border-radius: 8px;
+
 .pkp_page_admin .pkp_navigation_backend_primary,
 .pkp_navigation_backend_primary {
-	li a {
-		font-weight: normal;
-	}
-	width: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 3000;
-	background: @bg-toolbar;
-	border-bottom: solid 1px @border-toolbar;
-	#notificationsPopover {
+    li a {
+	font-weight: normal;
+    }
+    /*
+    li[aria-expanded="true"] > a {
+	font-weight: bold;
+    }
+    */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3000;
+    background: @bg-toolbar;
+    border-bottom: solid 1px @border-toolbar;
+    #notificationsPopover {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	width: 500px;
+	background: none;
+	.pkp_controllers_grid {
+	    border: none;
+	    border-radius: 0px;
+	    border-left: solid 1px @border-toolbar;
+	    border-right: solid 1px @border-toolbar;
+	    border-bottom: solid 1px @border-toolbar;
+	    border-radius: 0 0 @submenu-border-radius @submenu-border-radius;
+	    background: @bg-toolbar;
+	    .gridPaging {
 		display: none;
-		position: absolute;
-		top: 100%;
-		left: 0px;
-		width: 500px;
-		background: none;
-		.pkp_controllers_grid {
-			border: none;
-			border-radius: 0px;
-			border-left: solid 1px @border-toolbar;
-			border-right: solid 1px @border-toolbar;
-			border-bottom: solid 1px @border-toolbar;
-			background: @bg-toolbar;
-			.gridPaging {
-				display: none;
-			}
-			.actions {
-				border: none;
-				padding-top: 4px;
-				padding-bottom: 4px;
-				box-shadow: none;
-				background: @bleu-bg2;
-				a {
-					font-weight: normal;
-					border: none;
-				}
-				li {
-					border: none;
-				}
-				li:hover, a:hover {
-					background: inherit;
-					color: black;
-				}
-			}
+	    }
+	    .actions {
+		border: none;
+		border-radius: 0 0 @submenu-border-radius @submenu-border-radius;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		box-shadow: none;
+		background: @bleu-bg2;
+		a {
+		    font-weight: normal;
+		    border: none;
 		}
+		li {
+		    border: none;
+		}
+		li:hover, a:hover {
+			      background: inherit;
+			      color: black;
+			  }
+	    }
+	}
+    }
+    > ul {
+	width: 100%;
+	margin: 0px;
+	padding-left: 10px;
+	padding-right: @double;
+	text-align: left;
+    }
+    > ul > li {
+	text-align: left;
+	a {
+	    margin: 0;
+	    padding-left: 10px;
+	    padding-top: 3px;
+	    padding-bottom: 3px;
+	    padding-right: 10px;
+	    //color: black;
+	    font-size: smaller;
+	}
+	> ul {  // menu déroulant
+	    position: absolute;
+	    top: 100%;
+	    left: 0;
+	    z-index: 2000;
+	    display: none;
+	    box-shadow: none;
+	    //margin-top: -1px; //  pour recouvrir le border-bottom de la barre de menus
+	    border-radius: 0 0 @submenu-border-radius @submenu-border-radius;
+	    border-left: 1px solid @border-toolbar;
+	    border-right: 1px solid @border-toolbar;
+	    border-bottom: 1px solid @border-toolbar;
+	    //border-top: 1px solid @bg-toolbar;
+	    background: @bg-toolbar;
+	    @media( max-width: @screen-desktop ) {
+		left: 150px;
+		top: 8px;
+	    }
+	    @media( min-width: @screen-desktop ) {
+		//bottom: 0px;
+		left: 0px;
+	    }
+	    width: 6 * @triple;
+	    li {
+		//background: @bg-toolbar;
+		//border-left: 1px solid @border-toolbar;
+		//border-right: 1px solid @border-toolbar;
+		a {
+		    padding-left: 10px;
+		    padding-top: 2px;
+		    padding-bottom: 0px;
+		}
+	    }
+	    li:last-child {
+		padding-bottom: 4px;
+		//border-bottom: solid 1px @border-toolbar;
+	    }
+	    li:hover,
+	    li:hover a {
+		background: transparent;
+		color: black;
+	    }
+	}
+    }
+    > ul > li:hover {
+	> a, #userTasks > a {
+            font-weight: normal;
+	    color: black;
+	}
+	> ul, #notificationsPopover {
+	    display: block;
+	}
+    }
+    > ul > li.profile {
+	float: right;
+	padding-right: 0px;
+	text-align: right;
+	min-width: 130px;
+	> a {
+	    text-transform: none;
+	    padding-right: 6px;
+	}
+	a {
+	    color: black;
+	}
+	> a::before {
+	    content: "\f007";
+	    font: normal normal normal 14px/1 FontAwesome;
 	}
 	> ul {
-		width: 100%;
-		margin: 0px;
-		padding-left: @double;
-		padding-right: @double;
-		text-align: left;
+	    right: 0px;
+	    width: 130px;
+	    max-width: 130px; // ???
+	    a:hover {
+		color: @bleu-logo;
+	    }
 	}
-	> ul > li {
-		text-align: left;
-		a {
-			margin: 0;
-			padding-left: 6px;
-			padding-top: 3px;
-			padding-bottom: 3px;
-			padding-right: @double;
-			color: @bleu-logo;
-		}
-		> ul {
-			z-index: 2000;
-			display: none;
-			@media( max-width: @screen-desktop ) {
-				left: 150px;
-				top: 8px;
-			}
-			@media( min-width: @screen-desktop ) {
-				bottom: 0px;
-				left: 0px;
-			}
-			width: 5 * @triple;
-			li {
-				background: @bg-toolbar;
-				border-left: 1px solid @border-toolbar;
-				border-right: 1px solid @border-toolbar;
-				a {
-					padding-left: 5px;
-					padding-top: 2px;
-					padding-bottom: 2px;
-				}
-			}
-			li:last-child {
-				padding-bottom: 4px;
-				border-bottom: solid 1px @border-toolbar;
-			}
-			li:hover, li:hover a {
-				background: @bg-toolbar;
-				color: black;
-			}
-		}
-	}
-	> ul > li:hover {
-		> a, #userTasks > a {
-			color: black;
-		}
-		> ul, #notificationsPopover {
-			display: initial;
-		}
-	}
-	> ul > li.profile {
-		float: right;
-		padding-right: 0px;
-		text-align: right;
-		min-width: 130px;
-		> a {
-			text-transform: initial;
-			padding-right: 6px;
-		}
-		a {
-			color: black;
-		}
-		> a::before {
-			content: "\f007";
-			font: normal normal normal 14px/1 FontAwesome;
-		}
-		> ul {
-			right: 0px;
-			width: 130px;
-			max-width: 130px; // ???
-			a:hover {
-				color: @bleu-logo;
-			}
-		}
-	}
+    }
 }
 .pkp_nav_list [aria-haspopup] > a::after,
 .pkp_nav_list [aria-expanded="true"]::before {
-	display: none;
+    display: none;
 }
 
 .loginLink {
-	position: absolute;
-	right: 26px;
+    position: absolute;
+    z-index: 2000;
+    right: 26px;
+    top: 8px;
+    @media(min-width: @screen-desktop) {
 	top: 3px;
-	font-size: 90%;
-	a {
-		color: black;
-		font-family: orator_stdregular;
-		text-decoration: none;
-	}
+    }
+    font-size: 90%;
+    a {
+	color: black;
+	font-family: orator_stdregular;
+	text-decoration: none;
+    }
 }

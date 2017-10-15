@@ -13,6 +13,8 @@
 
 import('classes.handler.Handler');
 
+import('plugins.AHL.classes.Newsletter');
+
 class AboutHandler extends Handler {
 	/**
 	 * Constructor
@@ -27,11 +29,13 @@ class AboutHandler extends Handler {
 	 * @param $args array
 	 * @param $request PKPRequest
 	 */
+	/*
 	function partners($args, $request) {
 		$templateMgr = TemplateManager::getManager($request);
 		$this->setupTemplate($request);
 		$templateMgr->display('frontend/pages/partners.tpl');
 	}
+	*/
 
 	function editorialTeam($args, $request) {
 		$locale = AppLocale::getLocale();
@@ -78,6 +82,25 @@ class AboutHandler extends Handler {
 		$templateMgr->display('frontend/pages/editorialTeam.tpl');
 	}
 
+	function news($args, $request) {
+		$newsletter = new Newsletter();
+		$templateMgr = TemplateManager::getManager($request);
+		$this->setupTemplate($request);
+		$templateMgr->assign("numberOfSubscribers", $newsletter->numberOfSubscribers());
+		if (Validation::isLoggedIn()) {
+			$email = $request->getUser()->getEmail();
+			if ($newsletter->isSubscriber($email)) {
+				$templateMgr->assign("alreadySubscriber", true);
+			}
+		}
+		$templateMgr->display('frontend/pages/news.tpl');
+	}
+
+	function faq($args, $request) {
+		$templateMgr = TemplateManager::getManager($request);
+		$this->setupTemplate($request);
+		$templateMgr->display('frontend/pages/faq.tpl');
+	}
 }
 
 ?>

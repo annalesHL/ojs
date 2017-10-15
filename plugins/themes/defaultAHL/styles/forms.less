@@ -39,7 +39,7 @@
 	.section .label:empty, .section .legend:empty {
 		margin: 0px;
 	}
-	label.description {
+	label.description, label.error {
 		margin-top: 0px;
 	}
 	ul.checkbox_and_radiobutton li label {
@@ -115,9 +115,11 @@
 			background: @bleu-bg;
 		}
 		button {
+			background: gray;
 			background: initial;			
 		}
 		button:hover {
+			background: lighten(gray,20%);
 			background: initial;			
 		}
 	}
